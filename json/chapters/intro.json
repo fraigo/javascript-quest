@@ -29,8 +29,9 @@
         "programing-language" : {
             "title" : "What is a programming language?",
             "contents" : [
-                "Each language has a set of <b>human-readable instructions</b> (<i>commands</i>) that could be <i>translated to machine language</i>.",
+                "A programming language is a set of <b>human-readable instructions</b> (<i>commands</i>) that could be <i>translated to machine language</i>.",
                 "There are many programming languages, for example, <b>Javascript, Python, C, Java</b> and others.",
+                "The main differences between programming languages are their <i>syntax and special keywords</i>.",
                 "A program is translated into a computer program using an <b>interpreter</b> or a <b>compiler</b> for that language."
             ],
             "images":[
