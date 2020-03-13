@@ -13,6 +13,10 @@
       margin: 0;
       box-sizing: border-box;
     }
+    #app{
+      display: flex;
+      flex-grow: 1;
+    }
     main{
       width: 50%;
       background-color: #e0e0e0;
@@ -40,9 +44,26 @@
       overflow-y : scroll;
       line-height: 1.6em;
     }
+    button{
+      padding:6px;
+      margin-right: 6px;
+      display: inline-block;
+      margin-bottom: 6px;
+    }
+    .video-container{
+      position:relative;
+      height: 100%;
+    }
+    .video{
+      position:absolute;
+      width: 100%;
+      height: 100%;
+      top: 0px;
+      left: 0px;
+    }
 
     @media (max-width: 567px){
-      body{
+      #app{
         flex-wrap: wrap;
       }
       main{
@@ -60,17 +81,131 @@
   </style>
 </head>
 <body>
-  <main>
-    <section>
-    <h1>Introduction</h1>
-    <p>This is a step-by-step tutorial to introduce the Javascript language.</p>
-    </section>
-  </main>
-  <aside>
-    <p>Code Window: Use this window to test, practice and complete assignments:</p>
-    <code contenteditable>
-      // This is a comment
-    </code>
-  </aside>
+  <div id="app" >
+    <main >
+      <section >
+      <h1>{{content.title}}</h1>
+      <p><span v-for="line in content.contents">{{line}} </span></p>
+      <p><button v-for="(sect,sectionId) in content.sections" @click="changeSection(sectionId)" >{{sect.title}}</button></p>
+      <h3>{{section.title}}</h3>
+      <p v-for="line in section.contents" v-html="line"></p>
+      </section>
+    </main>
+    <aside>
+      <p v-if="section.code">Code Window: Use this window to test, practice and complete assignments:</p>
+      <code v-if="section.code" contenteditable>
+        // This is a comment
+        
+        {{contents}}
+      </code>
+      <div v-if="section.images" >
+        <div v-for="image in section.images">
+          <img :src="image" width="100%">
+        </div>
+      </div>
+      <div v-if="section.videos" class="video-container" >
+          <iframe v-for="video in section.videos" :src="video" width="100%" class="video">
+          </iframe>
+        </div>
+        <div>&nbsp;</div>
+    </aside>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+  <script>
+
+
+  var cacheId = Math.random();
+
+  var app = new Vue({
+    el: '#app',
+    data: {
+      contents : {
+
+      },
+      chapters: [
+
+      ],
+      chapterNumber: "",
+      sectionNumber: ""
+    },
+    mounted: function(){
+      var self = this;
+      fetch('json/contents.json?'+cacheId)
+        .then(function(response){
+          return response.json();
+        })
+        .then(function(data){
+          app.chapters=data.chapters;
+          handleHash();
+        })
+        .catch(function(err){
+          console.log("Error",err);
+        })
+    },
+    methods:{
+      loadChapter:function(id, sectionId){
+        fetch('json/chapters/'+id+'.json?'+cacheId)
+        .then(function(response){
+          return response.json();
+        })
+        .then(function(data){
+          console.log(id,data);
+          app.contents[id]=data;
+          app.chapterNumber=id;
+          if (!sectionId){
+            sectionId=Object.keys(data.sections)[0];
+          }
+          app.sectionNumber=sectionId;
+        })
+        .catch(function(err){
+          console.log("Error",err);
+        })
+      },
+      changeSection:function(id){
+        document.location="#"+this.chapter.id+"/"+id;
+      }
+    },
+    computed:{
+      chapter:function(){
+        var result = this.chapters[this.chapterNumber];
+        console.log("chapter", result);
+        if (!result) return {};
+        return result;
+      },
+      content:function(){
+        var id = this.chapter.id;
+        if (!id){
+          return {}
+        }
+        if (!this.contents[id]){
+          return {}
+        }
+        console.log("content");
+        return this.contents[id];
+      },
+      section:function(){
+        if (!this.content.sections){
+          return {};
+        }
+        console.log("section");
+        return this.content.sections[this.sectionNumber];
+      }
+    }
+  })
+
+
+  function handleHash(){
+    var hash=document.location.hash.replace('#','');
+    var parts=hash.split("/");
+    var chapterId=Object.keys(app.chapters)[0];
+    app.loadChapter(parts[0]?parts[0]:chapterId,parts[1]);
+    console.log(app.chapterNumber,app.sectionNumber);
+  }
+
+  window.onhashchange=handleHash;
+
+
+
+  </script>
 </body>
 </html>

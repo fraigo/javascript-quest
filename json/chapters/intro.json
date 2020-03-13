@@ -1,0 +1,67 @@
+{
+    "title" : "Introduction",
+    "contents" : [
+        "This is a step-by-step tutorial to introduce to programming in the Javascript language.",
+        "We will start with some definitions."
+    ],
+    "sections" : {
+        "program" : {
+            "title" : "What is a program?",
+            "contents" : [
+                "A <b>program</b> is a set of instructions that tell the computer what to do.",
+                "The computer can understand a set of <b>instructions</b> (<i>machine language</i>), but these instructions are often too complicated to understand for humans.",
+                "In the other hand, <b>human languages are too ambiguous</b> and difficult to understand for a computer."
+            ],
+            "images":[
+                "img/computer_human.jpg"
+            ]
+        },   
+        "programming" : {
+            "title" : "What is programming?",
+            "contents" : [
+                "Programming is the way to <b>give instructions to a computer</b>.",
+                "We can <b>write computer programs</b> in <i><a href='#intro/programing-language'>programming languages</a></i> specially designed for computers."
+            ],
+            "images":[
+                "img/computer_programming.jpg"
+            ]
+        },
+        "programing-language" : {
+            "title" : "What is a programming language?",
+            "contents" : [
+                "Each language has a set of <b>human-readable instructions</b> (<i>commands</i>) that could be <i>translated to machine language</i>.",
+                "There are many programming languages, for example, <b>Javascript, Python, C, Java</b> and others.",
+                "A program is translated into a computer program using an <b>interpreter</b> or a <b>compiler</b> for that language."
+            ],
+            "images":[
+                "img/programming_languages.jpg"
+            ]
+        },
+        "interpreters" : {
+            "title" : "Interpreters",
+            "contents" : [
+                "An <b>interpreter</b> is able to receive a set of instructions (program code), load, translate and run the program <b>immediately</b>.",
+                "Since the program code is translated <i>on the fly</i>, if at some point the loaded program have <i>syntax errors</i>, the interpreter stops the execution.",
+                "If an <i>unexpected error</i> ocurrs while running the program (<i>run-time error</i>), the program will fail and terminate.",
+                "Main features:",
+                "<ul><li>The program code could run in any machine, if an interpreter is available</li><li>The program is ready to run immediately (simplified analysis and optimization)</li><li>By using an intermediary program as interpreter, the execution performance could be lower than a compiled program.</li></ul>"
+            ],
+            "videos":[
+                "https://www.youtube.com/embed/e4ax90XmUBc"
+            ]
+        },
+        "compilers" : {
+            "title" : "Compilers",
+            "contents" : [
+                "A <b>compiler</b> can process a set of program files, to <b>verify and translate</b> the code (<i>compilation</i>) into machine language. The result is an executable program file.",
+                "If the code contains <b>errors or invalid syntax</b> (<i>compile-time error</i>), the <b>compilation fails</b> and no executable program is created.",
+                "If an <i>unexpected error</i> ocurrs during the <i>execution</i> of the compiled program (<i>run-rime error</i>), the program is <b>terminated</b>.",
+                "Main features:",
+                "<ul><li>The resulting executable program will run in specific machines wich understands the machine code (system specific)</li><li>The compilation process could take additional time to analyze, check, optimize and translate the program.</li><li>There is no intermediary. Once compiled, the program could run faster than interpreted programs.</li></ul>"
+            ],
+            "videos":[
+                "https://www.youtube.com/embed/e4ax90XmUBc"
+            ]
+        }
+    }
+}
